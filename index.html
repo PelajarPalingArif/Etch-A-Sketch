@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-A-Sketch</title>
     <h1>Etch A Sketch</h1>
-    <button onclick="changeTiles()">Edit Tiles</button>
+    <button onclick="promptTiles()">Edit Tiles</button>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -25,27 +25,30 @@
             }
                 container.appendChild(tempSquareDivs);
         }
-
-        function changeTiles(numOfTiles) {
+        function promptTiles(){
             let rowTiles = prompt("Enter the Number of Tiles in A Row (<100)");
             rowTiles = parseInt(rowTiles);
-            if(rowTiles > 99 || rowTiles < 0)rowTiles = 16;
+            generateTiles(rowTiles)
+        }
+        function generateTiles(numOfTiles) {
+            if(numOfTiles > 99 || numOfTiles < 0)numOfTiles = 16;
             
             let tempSquare = document.querySelectorAll(".box");
             tempSquare.forEach((ele) => {
                 ele.remove();
             })
             var i = 0;
-            for (i = 0; i < rowTiles * rowTiles; i++) {
+            for (i = 0; i < numOfTiles * numOfTiles; i++) {
                 let tempSquareDivs = squareDivs.cloneNode(true);
-                tempSquareDivs.style["width"] = 100.0 / rowTiles + "%";
-                tempSquareDivs.style["height"] = 100.0 / rowTiles + "%";
+                tempSquareDivs.style["width"] = 100.0 / numOfTiles + "%";
+                tempSquareDivs.style["height"] = 100.0 / numOfTiles + "%";
                 tempSquareDivs.onmouseover = () => {
                     tempSquareDivs.style["background-color"] = `rgb(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255})`;
                 }
                 container.appendChild(tempSquareDivs);   
             }
         }
+        generateTiles(16)
     </script>
 </body>
 </html>
